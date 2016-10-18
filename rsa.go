@@ -186,7 +186,7 @@ func PubKeyByte(pub *rsa.PublicKey, in []byte, isEncrytp bool) ([]byte, error) {
 		}
 		return pubKeyDecrypt(pub, in)
 	}
-	iv := make([]byte, k)
+	iv := make([]byte, 0, k)
 	out := bytes.NewBuffer(iv)
 	if err := pubKeyIO(pub, bytes.NewReader(in), out, isEncrytp); err != nil {
 		return nil, err
@@ -206,7 +206,7 @@ func PriKeyByte(pri *rsa.PrivateKey, in []byte, isEncrytp bool) ([]byte, error) 
 		}
 		return rsa.DecryptPKCS1v15(rand.Reader, pri, in)
 	}
-	iv := make([]byte, k)
+	iv := make([]byte, 0, k)
 	out := bytes.NewBuffer(iv)
 	if err := priKeyIO(pri, bytes.NewReader(in), out, isEncrytp); err != nil {
 		return nil, err
